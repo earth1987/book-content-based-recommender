@@ -1,4 +1,6 @@
 /.ipynb_checkpoints/
 /notebooks/.ipynb_checkpoints/
+/scripts/.ipynb_checkpoints/
+/book-content-based-recommender/.ipynb_checkpoints/
 /__pycache__/
 book-content-based-recommender/__pycache__/
