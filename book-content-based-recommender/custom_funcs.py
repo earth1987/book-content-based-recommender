@@ -73,12 +73,12 @@ def calculate_avg_scores(train_data, valid_data, top_k, all_books, all_user_tore
 
     # Randomly sample user ids from the validation set
     user_ids = list(valid_data["user_id"].unique())
-    sampled_user_ids = random.sample(user_ids, int(0.05*len(user_ids)))
+    sampled_user_ids = random.sample(user_ids, int(0.1*len(user_ids)))
 
     for id in sampled_user_ids:
         
-        # Output a dictionary containing 100 predicted items for each user.
-        user_recommendations[id] = recommendation_sys(id, train_data, 100, all_books, all_user_toread)
+        # Output a dictionary containing 50 predicted items for each user.
+        user_recommendations[id] = recommendation_sys(id, train_data, 50, all_books, all_user_toread)
     
         # Output a dictionary containing actual rated items for each user.
         user_history[id] = valid_data.loc[valid_data["user_id"] == id, "book_id"].tolist()
