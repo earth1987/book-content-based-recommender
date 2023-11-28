@@ -4,3 +4,4 @@
 /book-content-based-recommender/.ipynb_checkpoints/
 /__pycache__/
 book-content-based-recommender/__pycache__/
+/notebooks/*.bin.gz
