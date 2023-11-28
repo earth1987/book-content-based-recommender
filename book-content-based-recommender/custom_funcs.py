@@ -2,7 +2,9 @@ import pandas as pd
 import numpy as np
 import random
 from sklearn.model_selection import KFold
+from sklearn.metrics.pairwise import cosine_similarity
 import nltk
+import random
 import re
 
 ###############################################################################################
