@@ -9,13 +9,13 @@ The scope of the study was restricted to the [Good Book](https://github.com/zygm
 ## File structure
 
 <pre>
+|- book-content-based-recommender/
+   |- custom_funcs.py
 |- data/
    |- raw/
 |- notebooks/
    |- content_based_recommendation.ipynb
    |- figures/
-|- book-content-based-recommender/
-   |- custom_funcs.py
 |- .gitignore
 |- LICENSE
 |- README.md
