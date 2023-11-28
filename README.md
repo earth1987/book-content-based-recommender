@@ -4,7 +4,7 @@ The goal of this project was to develop a book recommendation system. Three cont
 
 ## Scope
 
-The scope of the study was restricted to the [Good Book](https://github.com/zygmuntz/goodbooks-10k) dataset. This dataset contains six million ratings for ten thousand most popular (with most ratings) books. There are also individual book ratings by users, books marked to read by the users, book metadata (author, year, etc.) and tags/shelves/genres.
+The scope of the study was restricted to the [Good Book](https://github.com/zygmuntz/goodbooks-10k) dataset. This dataset contains six million ratings for the ten thousand most popular books (those with the most ratings as of 2017). There are also individual book ratings by users, books marked to read by the users, book metadata (author, year, etc.) and tags/shelves/genres.
 
 ## File structure
 
