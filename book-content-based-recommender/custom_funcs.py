@@ -1,3 +1,4 @@
+from gensim.models import Word2Vec, KeyedVectors
 import pandas as pd
 import numpy as np
 import random
@@ -9,13 +10,30 @@ import re
 
 ###############################################################################################
 
+def pad_embedding(embedding, max_embedding_length):
+    """ 
+    Function used to pad input arrays
+    
+    Parameters:
+    - embedding: Input embedding
+    - max_embedding_length: Maximum embedding length
+
+    Returns: Padded embedding
+    """
+    if isinstance(embedding, np.ndarray) and len(embedding) > 0:
+        return np.pad(embedding, (0, max_embedding_length - len(embedding)), 'constant')
+    else:
+        return np.zeros(max_embedding_length)
+
+###############################################################################################
+
 def preprocess_text(text, stopwords, lemmatizer):
     """ 
     Function to process text
     
     Parameters:
     - text: Input string
-    - stopwords: List of stopwords to remove
+    - stopwords: Set of stopwords to remove
     - lemmatizer: Instantiated lemmatizer object
 
     Returns: Processed string.
@@ -25,7 +43,27 @@ def preprocess_text(text, stopwords, lemmatizer):
     text = re.sub('[^a-z\s]', '', text)  # Remove non-alphabetic characters
     tokens = nltk.word_tokenize(text) # Tokenize
     tokens = [lemmatizer.lemmatize(t) for t in tokens if t not in stopwords] # Lemmatize and remove stopwords
-    return " ".join(tokens)    
+    return " ".join(tokens)
+
+###############################################################################################
+
+def get_word2vec_embedding(text, pretrained_word2vec_model):
+    """
+    Function to get average word2vec embedding for a given piece of text.
+
+    Parameters:
+    - text: Input string
+    - pretrained_word2vec_model: Pre-trained word2vec model
+
+    Returns:
+    - Average embedding
+    """
+    tokens = nltk.word_tokenize(text)
+    vectors = [pretrained_word2vec_model[token] for token in tokens if token in pretrained_word2vec_model]
+    if vectors:
+        return sum(vectors) / len(vectors)
+    else:
+        return None
 
 ###############################################################################################
 
@@ -105,7 +143,7 @@ def calculate_baseline_kfold_score(recommendation_sys, train_data, valid_data, a
     # Iterate over random sample of users from the validation set
     valid_user_ids = valid_data["user_id"].unique()
     valid_user_ids = np.random.choice(valid_user_ids, size=int(
-        len(valid_user_ids)*0.01), replace=False)
+        len(valid_user_ids)*0.1), replace=False)
     for user_id in valid_user_ids:
         
         # Update dictionary with n_sample predicted items for the user
@@ -223,7 +261,7 @@ def calculate_kfold_score(recommendation_sys, cosine_similarity_matrix, user_mat
     # Iterate over random sample of users from the validation set
     valid_user_ids = valid_data["user_id"].unique()
     valid_user_ids = np.random.choice(valid_user_ids, size=int(
-        len(valid_user_ids)*0.01), replace=False)
+        len(valid_user_ids)*0.1), replace=False)
     for user_id in valid_user_ids:
 
         # Update dictionary with n_sample predicted items for the user
